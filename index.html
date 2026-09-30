@@ -1,0 +1,725 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Student Marks Dashboard</title>
+
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            min-height: 100vh;
+
+            padding: 40px 20px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #141e30,
+                    #243b55
+                );
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .container {
+
+            max-width: 1000px;
+
+            margin: auto;
+
+            background: #ffffff;
+
+            padding: 35px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 25px 60px
+                rgba(0, 0, 0, 0.3);
+        }
+
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        .header {
+
+            text-align: center;
+
+            margin-bottom: 30px;
+        }
+
+
+        .header h1 {
+
+            color: #1f2937;
+
+            font-size: 32px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .header p {
+
+            color: #777;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           FORM CARD
+        ========================= */
+
+        .form-card {
+
+            background: #f5f7fb;
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            margin-bottom: 30px;
+
+            border: 1px solid #e5e7eb;
+        }
+
+
+        .form-title {
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            color: #333;
+
+            margin-bottom: 18px;
+        }
+
+
+        form {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 12px;
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 2px solid #ddd;
+
+            border-radius: 10px;
+
+            outline: none;
+
+            font-size: 14px;
+
+            transition: 0.3s;
+        }
+
+
+        input:focus {
+
+            border-color: #3b82f6;
+
+            box-shadow:
+                0 0 8px
+                rgba(59, 130, 246, 0.2);
+        }
+
+
+        .add-button {
+
+            grid-column: span 4;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .add-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px
+                rgba(37, 99, 235, 0.3);
+        }
+
+
+        .add-button:active {
+
+            transform: scale(0.98);
+        }
+
+
+        /* =========================
+           TABLE SECTION
+        ========================= */
+
+        .table-title {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 15px;
+        }
+
+
+        .table-title h2 {
+
+            color: #333;
+
+            font-size: 20px;
+        }
+
+
+        .badge {
+
+            background: #e0e7ff;
+
+            color: #4338ca;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            font-size: 13px;
+
+            font-weight: bold;
+        }
+
+
+        .table-wrapper {
+
+            overflow-x: auto;
+
+            border-radius: 15px;
+
+            border: 1px solid #e5e7eb;
+        }
+
+
+        table {
+
+            width: 100%;
+
+            min-width: 700px;
+
+            border-collapse: collapse;
+        }
+
+
+        th {
+
+            padding: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            color: white;
+
+            font-size: 14px;
+        }
+
+
+        td {
+
+            padding: 14px;
+
+            text-align: center;
+
+            border-bottom:
+                1px solid #eeeeee;
+
+            color: #444;
+
+            font-size: 14px;
+        }
+
+
+        tbody tr {
+
+            transition: 0.2s;
+        }
+
+
+        tbody tr:hover {
+
+            background: #f5f7ff;
+
+            transform: scale(1.005);
+        }
+
+
+        tbody tr:nth-child(even) {
+
+            background: #fafafa;
+        }
+
+
+        /* =========================
+           TOTAL MARK
+        ========================= */
+
+        td:last-child {
+
+            font-weight: bold;
+
+            color: #2563eb;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+
+            text-align: center;
+
+            margin-top: 25px;
+
+            color: #888;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           MEDIA QUERY
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            body {
+
+                padding: 20px 10px;
+            }
+
+
+            .container {
+
+                padding: 20px;
+
+                border-radius: 18px;
+            }
+
+
+            .header h1 {
+
+                font-size: 25px;
+            }
+
+
+            form {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .add-button {
+
+                grid-column: span 1;
+            }
+
+
+            .table-title {
+
+                align-items: flex-start;
+
+                gap: 10px;
+
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+
+        <!-- HEADER -->
+
+        <div class="header">
+
+            <h1>
+                📚 Student Marks Dashboard
+            </h1>
+
+            <p>
+                Add students and calculate total marks
+            </p>
+
+        </div>
+
+
+
+        <!-- FORM -->
+
+        <div class="form-card">
+
+            <div class="form-title">
+
+                ➕ Add Student Marks
+
+            </div>
+
+
+            <form>
+
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Student Name">
+
+
+                <input
+                    type="number"
+                    id="tamil"
+                    placeholder="Tamil Mark">
+
+
+                <input
+                    type="number"
+                    id="english"
+                    placeholder="English Mark">
+
+
+                <input
+                    type="number"
+                    id="maths"
+                    placeholder="Maths Mark">
+
+
+                <button
+                    type="button"
+                    class="add-button"
+                    onclick="addStudent()">
+
+                    ➕ Add Student
+
+                </button>
+
+
+            </form>
+
+        </div>
+
+
+
+        <!-- TABLE TITLE -->
+
+        <div class="table-title">
+
+            <h2>
+                📊 Student Marks
+            </h2>
+
+            <div
+                class="badge"
+                id="studentCount">
+
+                Students: 0
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TABLE -->
+
+        <div class="table-wrapper">
+
+            <table id="studentTable">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Name</th>
+
+                        <th>Tamil</th>
+
+                        <th>English</th>
+
+                        <th>Maths</th>
+
+                        <th>Total</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="studentBody">
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+
+        <div class="footer">
+
+            Student Marks Management System © 2026
+
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+
+
+        // Student count
+
+        let count = 0;
+
+
+
+        // Add Student Function
+
+        function addStudent() {
+
+
+            let name =
+                document.getElementById(
+                    "name"
+                ).value;
+
+
+            let tamil =
+                Number(
+                    document.getElementById(
+                        "tamil"
+                    ).value
+                );
+
+
+            let english =
+                Number(
+                    document.getElementById(
+                        "english"
+                    ).value
+                );
+
+
+            let maths =
+                Number(
+                    document.getElementById(
+                        "maths"
+                    ).value
+                );
+
+
+
+            // Validation
+
+            if (
+
+                name === "" ||
+
+                document.getElementById(
+                    "tamil"
+                ).value === "" ||
+
+                document.getElementById(
+                    "english"
+                ).value === "" ||
+
+                document.getElementById(
+                    "maths"
+                ).value === ""
+
+            ) {
+
+                alert(
+                    "⚠️ Please fill all fields"
+                );
+
+                return;
+
+            }
+
+
+
+            // Calculate Total
+
+            let total =
+                tamil +
+                english +
+                maths;
+
+
+
+            // Increase Count
+
+            count++;
+
+
+
+            // Create Row
+
+            let row =
+                document.createElement(
+                    "tr"
+                );
+
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${count}
+                </td>
+
+                <td>
+                    ${name}
+                </td>
+
+                <td>
+                    ${tamil}
+                </td>
+
+                <td>
+                    ${english}
+                </td>
+
+                <td>
+                    ${maths}
+                </td>
+
+                <td>
+                    ${total}
+                </td>
+
+            `;
+
+
+
+            // Add Row to Table
+
+            document.getElementById(
+                "studentBody"
+            ).appendChild(row);
+
+
+
+            // Update Student Count
+
+            document.getElementById(
+                "studentCount"
+            ).innerHTML =
+
+                "Students: " +
+                count;
+
+
+
+            // Clear Inputs
+
+            document.getElementById(
+                "name"
+            ).value = "";
+
+
+            document.getElementById(
+                "tamil"
+            ).value = "";
+
+
+            document.getElementById(
+                "english"
+            ).value = "";
+
+
+            document.getElementById(
+                "maths"
+            ).value = "";
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
+
